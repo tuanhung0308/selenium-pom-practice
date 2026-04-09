@@ -1,0 +1,9 @@
+# Bỏ qua môi trường ảo của Python
+venv/
+
+# Bỏ qua rác sinh ra bởi Python và Pytest
+__pycache__/
+.pytest_cache/
+
+# Bỏ qua các báo cáo sinh ra mỗi lần chạy test
+report.html
