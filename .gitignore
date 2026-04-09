@@ -6,4 +6,4 @@ __pycache__/
 .pytest_cache/
 
 # Bỏ qua các báo cáo sinh ra mỗi lần chạy test
-report.html
+*html
