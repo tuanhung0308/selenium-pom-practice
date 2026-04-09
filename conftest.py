@@ -1,8 +1,14 @@
+from email.policy import default
 import webbrowser
 import os
 
 def pytest_sessionfinish(session, exitstatus):
-    report_path = os.path.abspath("report.html")
-    file_url = f"file:///{report_path}"
-    print("\n[+] Automating open report file...")
-    webbrowser.open(file_url)
+
+    html_flag_path = session.config.getoption("htmlpath", default=None)
+    if html_flag_path:
+        report_path = os.path.abspath(html_flag_path)
+        file_url = f"file:///{report_path}"
+        print("\n[+] Automating open report file: {html_flag_path}")
+        webbrowser.open(file_url)
+
+
