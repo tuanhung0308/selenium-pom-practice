@@ -9,9 +9,9 @@ def test_dropdown():
     driver = webdriver.Chrome()
     driver.get("https://www.saucedemo.com/")
     
-    driver.find_element(By.XPATH, "//input[@id='user-name']").send_keys("standard_user")
-    driver.find_element(By.XPATH, "//input[@id='password']").send_keys("secret_sauce")
-    driver.find_element(By.XPATH, "//input[@id='login-button']").click()
+    driver.find_element(By.CSS_SELECTOR, "#user-name").send_keys("standard_user")
+    driver.find_element(By.CSS_SELECTOR, "#password").send_keys("secret_sauce")
+    driver.find_element(By.CSS_SELECTOR, "#login-button").click()
 
     time.sleep(2)
 
@@ -19,5 +19,5 @@ def test_dropdown():
     select_dropdown = Select(dropdown)  
     select_dropdown.select_by_visible_text("Price (high to low)")
 
-    time.sleep(5)
+    time.sleep(10)
     driver.quit()
