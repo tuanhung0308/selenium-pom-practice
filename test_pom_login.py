@@ -39,6 +39,6 @@ def test_login_data_driven(username, password, expected_success):
         assert "inventory.html" in current_url, f"Kỳ vọng login thành công mà lại rớt đài. URL hiện tại: {current_url}"
     else:
         chua_bao_loi = login_pg.get_error_message()
-        print(f"\nHệ thống trả về lỗi đúng như dự đoán: {chua_bao_loi}")
+        print(f"\nHệ thống trả về lỗi như dự đoán: {chua_bao_loi}")
         assert "Epic sadface" in chua_bao_loi, "Kỳ vọng báo lỗi mà nó không chịu lỗi!"
     driver.quit()

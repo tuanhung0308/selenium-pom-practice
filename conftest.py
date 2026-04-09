@@ -10,5 +10,3 @@ def pytest_sessionfinish(session, exitstatus):
         file_url = f"file:///{report_path}"
         print("\n[+] Will auto open report file: {html_flag_path}")
         webbrowser.open(file_url)
-
-
