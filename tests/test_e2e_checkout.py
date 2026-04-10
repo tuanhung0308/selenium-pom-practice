@@ -28,7 +28,7 @@ def test_purchase_product(browser):
     browser.find_element(By.CSS_SELECTOR,"#first-name").send_keys("Son Bui")
     time.sleep(2)
     browser.find_element(By.CSS_SELECTOR,"#last-name").send_keys("123456")
-    time.sleep(2)
+    time.sleep(2)   
     browser.find_element(By.CSS_SELECTOR,"#postal-code").send_keys("So 9 Duy Tan")
     time.sleep(2)
     browser.find_element(By.CSS_SELECTOR,"#continue").click()
