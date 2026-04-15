@@ -1,40 +1,38 @@
-import time 
-from selenium.webdriver.common.by import By
+import time
+from pages.login_page import LoginPage
+from pages.inventory_page import InventoryPage
+from pages.checkout_page import CheckoutPage
 
 def test_purchase_product(browser):
     browser.get("https://www.saucedemo.com/")
 
-#login first
-    browser.find_element(By.XPATH, "//*[@id='user-name']").send_keys("standard_user")
-    browser.find_element(By.XPATH, "//*[@id='password']").send_keys("secret_sauce")
-    browser.find_element(By.XPATH, "//*[@id='login-button']").click()
-    time.sleep(2)
+    # 1. Khởi tạo 3 trang (3 miếng Lego)
+    login_pg = LoginPage(browser)
+    inventory_pg = InventoryPage(browser)
+    checkout_pg = CheckoutPage(browser)
 
-#select items
-    browser.find_element(By.XPATH,"//*[@id='add-to-cart-sauce-labs-backpack']").click()
+    # 2. KHÁCH HÀNG BẮT ĐẦU VÀO TRANG MUA SẮM
+    login_pg.enter_username("standard_user")
+    login_pg.enter_password("secret_sauce")
+    login_pg.click_login()
+    time.sleep(1)
+
+    # Nhặt đồ vứt vào giỏ và bấm sang trang Thanh toán
+    inventory_pg.add_two_items_to_cart()
     time.sleep(5)
-    browser.find_element(By.XPATH, "//*[@id='add-to-cart-sauce-labs-bike-light']").click()
+    inventory_pg.go_to_cart()
     time.sleep(5)
 
-#click shopping card    
-    browser.find_element(By.XPATH, "//*[@id='shopping_cart_container']").click()
-    time.sleep(2)
+    # Nạp hóa đơn và thanh toán
+    checkout_pg.click_checkout()
+    checkout_pg.fill_personal_info("Son Bui", "123456", "So 9 Duy Tan")
+    time.sleep(1)
 
-#click checkout button
-    browser.find_element(By.XPATH, "//*[@id='checkout']").click()
-    time.sleep(2)
+    checkout_pg.finish_order()
 
-#fill information of user
-    browser.find_element(By.CSS_SELECTOR,"#first-name").send_keys("Son Bui")
-    time.sleep(2)
-    browser.find_element(By.CSS_SELECTOR,"#last-name").send_keys("123456")
-    time.sleep(2)   
-    browser.find_element(By.CSS_SELECTOR,"#postal-code").send_keys("So 9 Duy Tan")
-    time.sleep(2)
-    browser.find_element(By.CSS_SELECTOR,"#continue").click()
-    time.sleep(8)
-
-#fisish order and read checkout overview the last time
-    browser.find_element(By.CSS_SELECTOR,"#finish").click()
-    time.sleep(4)
+    # 3. Quẹt thẻ đính bến
+    loi_cam_on = checkout_pg.get_success_message()
+    assert "Thank you" in loi_cam_on, "Mua hàng thất bại văng mạng!"
     
+    time.sleep(2)
+
